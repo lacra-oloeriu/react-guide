@@ -5,8 +5,7 @@ import React from "react";
 import Expenses from "./components/Expenses";
 import NewExpense from "./components/NewExpense";
 
-
-const  App = () => {
+const App = () => {
   const expenses = [
     {
       id: "e1",
@@ -29,6 +28,11 @@ const  App = () => {
     },
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log("in app.js");
+    console.log(expense);
+  };
+
   //return React.createElement(
   // "div",
   // {},
@@ -37,10 +41,10 @@ const  App = () => {
   //);
   return (
     <div>
-      <NewExpense/>
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );
-}
+};
 
 export default App;
