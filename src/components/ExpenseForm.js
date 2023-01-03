@@ -22,7 +22,7 @@ const ExpenseForm = (props) => {
   };
 
   const submitHandeler = (event) => {
-    event.preventDEFAULT();
+    event.preventDefault();
 
     const expenseData = {
       title: enteredTitle,
@@ -35,6 +35,7 @@ const ExpenseForm = (props) => {
     setEnteredAmount("");
     setEnteredDate("");
   };
+
   return (
     <form onSubmit={submitHandeler}>
       <div className="new-expense__controls">
