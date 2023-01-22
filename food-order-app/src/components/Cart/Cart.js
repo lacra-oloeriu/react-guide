@@ -17,7 +17,7 @@ const Cart = (props) => {
         <span>35.62</span>
       </div>
       <div className={classes.actions}>
-        <buttton className={classes["button--alt"]} onClick={props.onClose}>
+        <buttton className={classes['button--alt']} onClick={props.onClose}>
           Close
         </buttton>
         <button className={classes.button}>Order</button>
