@@ -1,4 +1,3 @@
-import { PROPERTY_TYPES } from "@babel/types";
 import classes from "./Input.module.css";
 
 const Input = (props) => {
