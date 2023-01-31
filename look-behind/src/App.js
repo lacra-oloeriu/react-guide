@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import "./App.css";
 import Button from "./components/UI/Button/Button";
@@ -9,9 +9,11 @@ function App() {
 
   console.log("APP RUNNING");
 
-  const togglePatagraphHandler = () => {
+  const togglePatagraphHandler = useCallback(() => {
     setShowParagraph((prevShowParagraph) => !prevShowParagraph);
-  };
+  } , []);
+
+  //the function will never change!!
 
   return (
     <div className="app">
