@@ -10,8 +10,8 @@ const DUMMY_USERS = [
 ];
 
 class Users extends Component {
-   constructor(props) {
-    super(props);
+   constructor() {
+    super();
     this.state = {
       showUsers: true,
     };
