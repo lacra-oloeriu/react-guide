@@ -14,7 +14,9 @@ function App() {
     setError(null);
 
     try {
-      const response = await fetch("https://console.firebase.google.com/u/0/project/react-http-7ceb0/database/react-http-7ceb0-default-rtdb/data/~2F/movies.json");
+      const response = await fetch(
+        "https://react-http-7ceb0-default-rtdb.europe-west1.firebasedatabase.app/movies.json"
+      );
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
@@ -42,8 +44,19 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  function addMovieHandler(movie) {
-    console.log(movie);
+  async function addMovieHandler(movie) {
+    const response = await fetch(
+      "https://react-http-7ceb0-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
   }
 
   let content = <p>Found no movies.</p>;
