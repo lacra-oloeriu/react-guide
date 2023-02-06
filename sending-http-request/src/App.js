@@ -24,15 +24,26 @@ function App() {
 
       const data = await response.json();
 
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseData: movieData.release_date,
-        };
-      });
-      setMovies(transformedMovies);
+      const loadedMovies = [];
+
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+
+      //const transformedMovies = data.map((movieData) => {
+      //return {
+      // id: movieData.episode_id,
+      // title: movieData.title,
+      // openingText: movieData.opening_crawl,
+      // releaseDate: movieData.release_date,
+      //};
+      //});
+      setMovies(loadedMovies);
       setIsLoading(false);
     } catch (error) {
       setError(error.message);
@@ -51,7 +62,7 @@ function App() {
         method: "POST",
         body: JSON.stringify(movie),
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
       }
     );
