@@ -35,14 +35,6 @@ function App() {
         });
       }
 
-      //const transformedMovies = data.map((movieData) => {
-      //return {
-      // id: movieData.episode_id,
-      // title: movieData.title,
-      // openingText: movieData.opening_crawl,
-      // releaseDate: movieData.release_date,
-      //};
-      //});
       setMovies(loadedMovies);
       setIsLoading(false);
     } catch (error) {
