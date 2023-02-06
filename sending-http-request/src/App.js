@@ -14,7 +14,7 @@ function App() {
     setError(null);
 
     try {
-      const response = await fetch("https://swapi.dev/api/films/");
+      const response = await fetch("https://console.firebase.google.com/u/0/project/react-http-7ceb0/database/react-http-7ceb0-default-rtdb/data/~2F/movies.json");
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
