@@ -7,16 +7,6 @@ import useHttp from "./hooks/use-http";
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  //const transformTasks = ((taskObj) => {
-  //const loadedTasks = [];
-
-  //for (const taskKey in taskObj) {
-  //  loadedTasks.push({ id: taskKey, text: taskObj[taskKey].text });
-  //}
-
-  //setTasks(loadedTasks);
-  //});
-
   const { isLoading, error, sendRequest: fetchTasks } = useHttp();
 
   useEffect(() => {
