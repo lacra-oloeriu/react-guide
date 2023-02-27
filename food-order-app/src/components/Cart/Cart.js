@@ -1,4 +1,4 @@
-import React , { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import CartItem from "./CartItem";
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
@@ -85,7 +85,16 @@ const Cart = (props) => {
 
   const isSubmittingModalContent = <p>Sending order data...</p>;
 
-  const didSubmitModalContent = <p>successfylly sent the order!</p>;
+  const didSubmitModalContent = (
+    <React.Fragment>
+      <p>successfylly sent the order!</p>
+      <div className={classes.actions}>
+        <buttton className={classes.button} onClick={props.onClose}>
+          Close
+        </buttton>
+      </div>
+    </React.Fragment>
+  );
 
   return (
     <Modal onClose={props.onClose}>
