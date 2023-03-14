@@ -55,7 +55,7 @@ const counterSlice = createSlice({
 //};
 
 const initialAuthState = {
-  isAurhenticated: false,
+  isAuthenticated: false,
 };
 
 const authSlice = createSlice({
@@ -63,10 +63,10 @@ const authSlice = createSlice({
   initialState: initialAuthState,
   reducers: {
     login(state) {
-      state.isAurhenticated = true;
+      state.isAuthenticated = true;
     },
     logout(state) {
-      state.isAurhenticated = false;
+      state.isAuthenticated = false;
     },
   },
 });
