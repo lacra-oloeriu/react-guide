@@ -24,7 +24,7 @@ function App() {
         })
       );
       const response = await fetch(
-        "https://advanced-redux-e5858-default-rtdb.firebaseio.com/cart.json",
+        "https://advanced-redux-e5858-default-rtdb.firebaseio.com/cart",
         { method: "PUT", body: JSON.stringify(cart) }
       );
 
