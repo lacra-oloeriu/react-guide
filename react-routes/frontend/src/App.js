@@ -38,41 +38,39 @@ import ErrorPage from "./pages/Error";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
       {
-        path: "events",
+        path: 'events',
         element: <EventsRootLayout />,
         children: [
           {
             index: true,
             element: <Events />,
             loader: eventsLoader,
-            // async () => {
-            // const response = await fetch("http://localhost:8080/events");
-
-            //if (!response.ok) {
-            //} else {
-            // const resData = await response.json();
-            // return resData.events;
-            //}
-            // },
           },
           {
-            path: ":eventId",
-            element: <EventDetail />,
+            path: ':eventId',
+            id: 'event-detail',
             loader: eventDetailLoader,
+            children: [
+              {
+                index: true,
+                element: <EventDetail />,
+              },
+              { path: 'edit', element: <EditEvent /> },
+            ],
           },
-          { path: "new", element: <NewEvent /> },
-          { path: ":eventId/edit", element: <EditEvent /> },
+          { path: 'new', element: <NewEvent /> },
         ],
       },
     ],
   },
 ]);
+
 function App() {
   return <RouterProvider router={router} />;
 }
