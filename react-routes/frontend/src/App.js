@@ -29,7 +29,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import Events, { loader as eventsLoader } from "./pages/Events";
-import EventDetail, { loader as eventDetailLoader } from "./pages/EventDetail";
+import EventDetail, { loader as eventDetailLoader, action as deleteEventAction } from "./pages/EventDetail";
 import NewEvent , { action as newEventAction}from "./pages/NewEvent";
 import EditEvent from "./pages/EditEvent";
 import RootLayout from "./pages/Root";
@@ -60,6 +60,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <EventDetail />,
+                action: deleteEventAction,
               },
               { path: 'edit', element: <EditEvent /> },
             ],
