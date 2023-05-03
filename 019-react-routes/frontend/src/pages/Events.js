@@ -4,6 +4,7 @@ import EventsList from "../components/EventsList";
 
 function EventsPage() {
   const data = useLoaderData();
+
   const events = data.events;
 
   return <EventsList events={events} />;
@@ -12,11 +13,10 @@ function EventsPage() {
 export default EventsPage;
 
 export async function loader() {
-  const response = await fetch("http://localhost:8080/events");
+  const response = await fetch("http://localhost:8080/eventsdsdssfs");
   if (!response.ok) {
+    throw{ message:'Could not fetch events'};
   } else {
-    //const resData = await response.json();
-    //return resData.events;
     return response;
   }
 }
