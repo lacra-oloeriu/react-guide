@@ -3,6 +3,7 @@ const fs = require('node:fs/promises');
 const { v4: generateId } = require('uuid');
 
 const { NotFoundError } = require('../util/errors');
+//const { readData, writeData } = require('./util');
 
 async function readData() {
   const data = await fs.readFile('events.json', 'utf8');
