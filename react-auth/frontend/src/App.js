@@ -58,7 +58,7 @@ const router = createBrowserRouter([
       {
         path: 'auth',
         element: <AuthenticationPage />,
-        action: newsletterAction,
+      
       },
       {
         path: 'newsletter',
