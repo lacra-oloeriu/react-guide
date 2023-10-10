@@ -11,7 +11,7 @@ function AuthForm() {
   //}
 
   const [searchParams] = useSearchParams();
-  const isLogin = searchParams.get('mode')=== 'login'
+  const isLogin = searchParams.get('mode')=== 'login';
 
   return (
     <>
