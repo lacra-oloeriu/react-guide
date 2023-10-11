@@ -1,4 +1,4 @@
-import { json } from 'react-router-dom';
+import { json, redirect } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
 
 function AuthenticationPage() {
@@ -21,11 +21,20 @@ if ( mode !=='login' && mode !== 'signup') {
       password: data.get('password')
   };
 
-   const respomse = fetch('http://localhost:8080/login'+ mode, {
+   const response = fetch('http://localhost:8080/login'+ mode, {
     method: 'POST',
     header: {
       'Content-Type': 'application/json'
     },
     body:JSON.stringify(authData)
    });
+
+   if (response.status === 422 || response.status === 401) {
+    return response;
+   }
+
+   if (!response.ok) {
+    throw json({ message: 'Could not authenicate user.' } , {status:500})
+   }
+   return redirect('/');
 }
