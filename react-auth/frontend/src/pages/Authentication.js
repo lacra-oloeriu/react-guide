@@ -36,5 +36,11 @@ if ( mode !=='login' && mode !== 'signup') {
    if (!response.ok) {
     throw json({ message: 'Could not authenicate user.' } , {status:500})
    }
+
+   const restData = await response.json();
+   const token = restData.token;
+
+   localStorage.setItem('token', token);
+
    return redirect('/');
 }
