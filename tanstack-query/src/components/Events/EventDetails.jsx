@@ -1,12 +1,13 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import Header from '../Header.jsx';
-import { fetchEvent, deleteEvent } from '../../util/http.js';
+import { fetchEvent, deleteEvent, queryClient } from '../../util/http.js';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
 
 export default function EventDetails() {
-   const params = useParams()
+   const params = useParams();
+   const navigate = useNavigate();
 
    const {data, isPending, isError, error } = useQuery ({
     queryKey:['events', params.id],
@@ -14,7 +15,13 @@ export default function EventDetails() {
   });
 
    const { mutate } = useMutation({
-    mutationFn:deleteEvent
+    mutationFn:deleteEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['events']
+      })
+      navigate('/events');
+    }
   });
 
   function handeleDelete() {
