@@ -1,8 +1,8 @@
 import { Link, Outlet, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 import Header from '../Header.jsx';
-import { fetchEvent } from '../../util/http.js';
+import { fetchEvent, deleteEvent } from '../../util/http.js';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
 
 export default function EventDetails() {
@@ -12,6 +12,14 @@ export default function EventDetails() {
     queryKey:['events', params.id],
     queryFn: ({signal}) => fetchEvent({signal, id: params.id})
   });
+
+   const { mutate } = useMutation({
+    mutationFn:deleteEvent
+  });
+
+  function handeleDelete() {
+    mutate({ id: params.id});
+  }
 
   let content;
 
@@ -40,7 +48,7 @@ export default function EventDetails() {
       <header>
           <h1>{data.title}</h1>
           <nav>
-            <button>Delete</button>
+            <button onClick={handeleDelete}>Delete</button>
             <Link to="edit">Edit</Link>
           </nav>
         </header>
