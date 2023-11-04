@@ -32,7 +32,7 @@ export default function NewEvent() {
             Cancel
           </Link>
           <button type="submit" className="button">
-            Create
+            Update
           </button>
         </>
         )}
