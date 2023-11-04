@@ -50,8 +50,12 @@ export default function EventDetails() {
   };
 
   if (isError) {
-    content = ( <div id='event-details-content' className='center'>
-      <ErrorBlock title ='Faild to load event' message ={error.info?.message  || 'Faild to fetch event data, please try again later'}/>
+    content = (
+       <div id='event-details-content' className='center'>
+      <ErrorBlock 
+      title ='Faild to load event' 
+      message ={error.info?.message  || 'Faild to fetch event data, please try again later'}
+      />
     </div>
     )
   };
@@ -62,6 +66,7 @@ export default function EventDetails() {
       month: 'short',
       year: 'numeric',
     })
+
     content =  (
       <>
       <header>
@@ -76,7 +81,7 @@ export default function EventDetails() {
     <div id="event-details-info">
       <div>
         <p id="event-details-location">{data.location}</p>
-        <time dateTime={`Todo-DateT$Todo-Time`}>{data.date} @ {formattedDate}</time>
+        <time dateTime={`Todo-DateT$Todo-Time`}> {formattedDate} @ {data.time}</time>
       </div>
       <p id="event-details-description">{data.description}</p>
     </div>

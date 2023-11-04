@@ -37,7 +37,8 @@ export default function NewEvent() {
         </>
         )}
       </EventForm>
-      {isError && <ErrorBlock  title='Failed to create event .' message={error.info?.message || 'Failed to create event .Please check your inputs and try again later.'}/>}
+      {isError && <ErrorBlock  title='Failed to create event .' 
+      message={error.info?.message || 'Failed to create event .Please check your inputs and try again later.'}/>}
     </Modal>
   );
 }
