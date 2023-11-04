@@ -21,14 +21,24 @@ export default function EditEvent() {
     onMutate: async (data) => {
       const newEvent = data.event;
 
-       await queryClient.cancelQueries({queryKey: ['events', params.id]});
+      await queryClient.cancelQueries({queryKey: ['events', params.id]});
+      const previousEvent = queryClient.getQueryData(['events', params.id]);
+
       queryClient.setQueryData(['events', params.id], newEvent);
+
+      return { previousEvent };
+    },
+    onError: (error, data, context) => {
+      queryClient.setQueryData(['events', params.id], context.previousEvent);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['events', params.id]);
     }
-  })
+  });
 
   function handleSubmit(formData) {
-    mutate({ id:params.id, event: formData});
-    navigate('../')
+    mutate({ id: params.id, event: formData });
+    navigate('../');
   }
 
   function handleClose() {
@@ -37,43 +47,45 @@ export default function EditEvent() {
 
   let content;
 
-  if ( isPending) {
-    content = ( 
-    <div className='center'>
-      <LoadingIndicator />
-    </div>
+  if (isPending) {
+    content = (
+      <div className="center">
+        <LoadingIndicator />
+      </div>
     );
   }
 
-  if ( isError) {
+  if (isError) {
     content = (
-    <>
-    <ErrorBlock  title='Failed to load event' 
-    message={error.info?.message || 
-    'Failed to load event ,Please check your inputs and try again later.'}
-    />
-    <div className='form-action'>
-      <Link to='../' className='button'>
-        Okay
-      </Link>
-
-    </div>
-    </>
+      <>
+        <ErrorBlock
+          title="Failed to load event"
+          message={
+            error.info?.message ||
+            'Failed to load event. Please check your inputs and try again later.'
+          }
+        />
+        <div className="form-actions">
+          <Link to="../" className="button">
+            Okay
+          </Link>
+        </div>
+      </>
     );
   }
 
   if (data) {
     content = (
-    <EventForm inputData={data} onSubmit={handleSubmit}>
-    <Link to="../" className="button-text">
-      Cancel
-    </Link>
-    <button type="submit" className="button">
-      Update
-    </button>
-  </EventForm>
+      <EventForm inputData={data} onSubmit={handleSubmit}>
+        <Link to="../" className="button-text">
+          Cancel
+        </Link>
+        <button type="submit" className="button">
+          Update
+        </button>
+      </EventForm>
     );
   }
-  return 
-    <Modal onClose={handleClose}>{content}</Modal>
+
+  return <Modal onClose={handleClose}>{content}</Modal>;
 }

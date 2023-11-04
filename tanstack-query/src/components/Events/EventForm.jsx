@@ -38,7 +38,11 @@ export default function EventForm({ inputData, onSubmit, children }) {
         />
       </p>
       {isPanding && <p>Loading selectable images...</p>}
-      {isError && <ErrorBlock  title='Failed to load selectable images.' message='Please try again later.'/>}
+      {isError && (
+      <ErrorBlock  title='Failed to load selectable images.'
+       message='Please try again later.'
+       />
+      )}
       { data && ( 
       
       <div className="control">
