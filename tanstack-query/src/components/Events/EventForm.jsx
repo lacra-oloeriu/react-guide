@@ -10,7 +10,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
 
    const { data, isPanding, isError } = useQuery ({
     queryKey: ['events-images'],
-    queryFn: fetchSelectableImages
+    queryFn: fetchSelectableImages,
   });
 
   function handleSelectImage(image) {
