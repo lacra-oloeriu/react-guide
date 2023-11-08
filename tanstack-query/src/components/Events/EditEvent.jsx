@@ -1,5 +1,5 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { Link, redirect, useNavigate, useParams, useSubmit } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 import Modal from '../UI/Modal.jsx';
 import EventForm from './EventForm.jsx';
@@ -9,6 +9,7 @@ import ErrorBlock from '../UI/ErrorBlock.jsx';
 
 export default function EditEvent() {
   const navigate = useNavigate();
+  const submit = useSubmit();
   const  params = useParams()
 
    const {data, isError, error } = useQuery({
@@ -16,29 +17,28 @@ export default function EditEvent() {
     queryFn: ({signal}) => fetchEvent({signal, id:params.id})
   })
 
-   const { mutate } = useMutation({
-    mutationFn: updateEvent,
-    onMutate: async (data) => {
-      const newEvent = data.event;
+   //const { mutate } = useMutation({
+   // mutationFn: updateEvent,
+   // onMutate: async (data) => {
+     // const newEvent = data.event;
 
-      await queryClient.cancelQueries({queryKey: ['events', params.id]});
-      const previousEvent = queryClient.getQueryData(['events', params.id]);
+     // await queryClient.cancelQueries({queryKey: ['events', params.id]});
+     // const previousEvent = queryClient.getQueryData(['events', params.id]);
 
-      queryClient.setQueryData(['events', params.id], newEvent);
+     // queryClient.setQueryData(['events', params.id], newEvent);
 
-      return { previousEvent };
-    },
-    onError: (error, data, context) => {
-      queryClient.setQueryData(['events', params.id], context.previousEvent);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['events', params.id]);
-    }
-  });
+      //return { previousEvent };
+    //},
+    //onError: (error, data, context) => {
+      //queryClient.setQueryData(['events', params.id], context.previousEvent);
+    //},
+   // onSettled: () => {
+     // queryClient.invalidateQueries(['events', params.id]);
+   // }
+ // });
 
   function handleSubmit(formData) {
-    mutate({ id: params.id, event: formData });
-    navigate('../');
+   submit(formData, { method: 'PUT' });
   }
 
   function handleClose() {
@@ -87,4 +87,12 @@ export function loader({ params}) {
     queryKey:['events', params.id],
     queryFn: ({signal}) => fetchEvent({ signal, id: params.id}),
   });
+}
+
+export async function action({ request, params}) {
+  const formData = await request.formData();
+  const updatedEventData = Object.fromEntries(formData);
+  await updateEvent({ id: params.id, event: updatedEventData});
+  await queryClient.invalidateQueries(['events']);
+  return redirect('../')
 }
