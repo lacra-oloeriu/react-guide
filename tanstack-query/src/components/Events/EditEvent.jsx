@@ -11,11 +11,12 @@ export default function EditEvent() {
   const navigate = useNavigate();
   const { state} = useNavigation();
   const submit = useSubmit();
-  const  params = useParams()
+  const params = useParams()
 
    const {data, isError, error } = useQuery({
     queryKey: ['events', params.id],
-    queryFn: ({signal}) => fetchEvent({signal, id:params.id})
+    queryFn: ({signal}) => fetchEvent({signal, id:params.id}),
+    staleTime:10000
   })
 
    //const { mutate } = useMutation({
@@ -72,7 +73,7 @@ export default function EditEvent() {
       <EventForm inputData={data} onSubmit={handleSubmit}>
         {state ==='submiting' ? (
            <p> Sending data...</p> 
-        ):( 
+        ) : ( 
         <>
         <Link to="../" className="button-text">
           Cancel
